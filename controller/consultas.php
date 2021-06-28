@@ -1,28 +1,53 @@
 <?php 
+#include("../views/home.php");
 include("../conexionsql/conexion.php");
 
 function login($user){
     include("../conexionsql/conexion.php");
-$consulta ="SELECT user FROM users WHERE user = '$user'";
+$consulta ="SELECT nombre,password FROM usuarios WHERE nombre = '$user'";
 
-$resultado = $conexion->query($user) or die($conexion->error);
+$resultado = $conexion->query($consulta) or die($conexion->error);
+
 return $resultado;
 };
 
+function registro($nombre,$correo,$password){
+    include ("../conexionsql/conexion.php");    
+    $insertar = "INSERT INTO usuarios(nombre,correo,password) VALUES ('$nombre','$correo','$password')";
+    $resultado = $conexion->query($insertar) or die($conexion->error);
+    if($resultado) {
+        echo"<script>alert('se ha registrado con exito, bienvenido $nombre')
+        window.location='/prueba_php_login/Views/home.php'</script>";
+    } else{
+        echo"<script>alert(' No se ha registrado');window,history.go(-1);</script>";
+    }
+
+};
+
 switch ($_POST['type']) {
-    case 'register':
-        echo $_POST['user'];
-        $conexion->query($consulta);
+    case 'registro':
+        if($_POST['password'] != $_POST['re_password']){
+            echo"<script>alert('Las contraseñas no coinciden');window,history.go(-1);</script>";
+        }else {
+            registro($_POST['user'],$_POST['correo'],$_POST['password']);
+        }
+        
         break;
     
     case 'login':
-           login($_POST['user']);
+        $result = login($_POST['user']);
+        $dato = $result->fetch_array();
+        $usuario = $dato['nombre'];
+        $password = $dato['password'];
+        echo $password;
+        if($usuario != $_POST{'user'} || $password != $_POST['password']){
+            echo "<script>alert('usuario no registrado');window,history.go(-1);</script>";
+        }else {
+            echo"<script>alert('Hola $usuario Bienvenido a NBC Latam');window,window.location='../views/home.php'</script>";
+        };
             break;
 
     default:
-        
-        echo$_POST['user'];
-        echo "<br>";
-        echo $_POST['password'];
+    echo "<script>alert(' No se ha registrado');window,history.go(-1);</script>";
         break;
 }

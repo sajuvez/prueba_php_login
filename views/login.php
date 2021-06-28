@@ -18,10 +18,12 @@ $consulta = "";
 <input type="text" name="user">
 <br>
 <p>contraseña</p>
-<input type="text" name="password">
+<input type="password" name="password">
 <br>
 <input type="submit" value="iniciar sesion">
 </form>
-
+<button onclick="location.href='registro.php'">
+<b>crear cuenta</b>
+</button>
 </body>
 </html>
