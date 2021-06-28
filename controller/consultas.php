@@ -2,8 +2,11 @@
 include("../conexionsql/conexion.php");
 
 function login($user){
+    include("../conexionsql/conexion.php");
 $consulta ="SELECT user FROM users WHERE user = '$user'";
 
+$resultado = $conexion->query($user) or die($conexion->error);
+return $resultado;
 };
 
 switch ($_POST['type']) {
@@ -13,7 +16,7 @@ switch ($_POST['type']) {
         break;
     
     case 'login':
-           echo "login";
+           login($_POST['user']);
             break;
 
     default:
