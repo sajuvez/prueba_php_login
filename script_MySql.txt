@@ -1,0 +1,10 @@
+CREATE DATABASE prueba_login_php;
+USE prueba_login_php;
+CREATE TABLE IF NOT EXISTS usuarios (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    nombre varchar(50) NOT NULL UNIQUE,
+    correo varchar(50) NOT NULL UNIQUE,
+    password varchar(50) NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO empleados ( id, nombre, correo,password ) VALUES ( null, 'Diego', 'Diego@mail.com', '123456' );
