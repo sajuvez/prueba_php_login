@@ -1,4 +1,4 @@
-CREATE DATABASE prueba_login_php;
+CREATE DATABASE IF NOT EXISTS prueba_login_php;
 USE prueba_login_php;
 CREATE TABLE IF NOT EXISTS usuarios (
     id int(11) NOT NULL AUTO_INCREMENT,
